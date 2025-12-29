@@ -68,5 +68,19 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, year, month, target_table, ch
             if_exists='append'
         )
 
+    df_green = pd.read_csv("https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz")
+    df_green.to_sql(
+        name="green_taxi_data",
+        con=engine,
+        if_exists="append"
+    )
+
+    df_zones = pd.read_csv("https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv")
+    df_zones.to_sql(
+        name="zones",
+        con=engine,
+        if_exists="append"
+    )
+
 if __name__ == '__main__':
     run()
